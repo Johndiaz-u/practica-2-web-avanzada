@@ -1,0 +1,60 @@
+app:
+  jwtSecret: ${APP_JWT_SECRET:343434jjskdjksadas}
+  jwtExpirationInMs: ${APP_JWT_EXPIRATION:3600}
+
+spring:
+  profiles:
+    active: dev
+
+---
+spring:
+  profiles: dev
+
+  datasource:
+    url: jdbc:h2:mem:SpringBoot
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    platform: h2
+
+
+  jackson:
+    default-property-inclusion: non_null
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      settings:
+        web-allow-others: true
+      enabled: true
+      path: /h2
+  security:
+    user:
+      name: admin
+      password: admin
+      roles: USER, ADMIN
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+server:
+  port: 38080
+
+---
+
+spring:
+  profiles: prod
+  datasource:
+    platform: h2
+server:
+  port: ${APP_PORT}
+

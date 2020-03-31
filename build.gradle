@@ -1,0 +1,46 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.5.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'edu.pucmm'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+	maven {
+		url 'http://maven.vaadin.com/vaadin-addons'
+	}
+}
+
+ext {
+	set('vaadinVersion', "13.0.8")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-amqp'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	implementation 'com.vaadin:vaadin-spring-boot-starter'
+	implementation 'org.webjars.bowergithub.polymerelements:iron-form:2.4.0'
+	implementation 'com.vaadin:vaadin-charts-flow'
+	implementation "org.springframework.boot:spring-boot-starter-mail:2.0.1.RELEASE"
+
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
+	compile group: 'com.h2database', name: 'h2', version: '1.4.192'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "com.vaadin:vaadin-bom:${vaadinVersion}"
+	}
+}
